@@ -2,7 +2,7 @@
 #import "SMStubView.h"
 
 @interface SMStubViewViewController : UIViewController <SMStubViewDelegate> {
-	SMStubView *	_viewStub;
+	SMStubView *	_stubView;
 	UILabel *		_label;
 }
 
