@@ -16,10 +16,12 @@
 	if (self) {
 		self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview.png"]];
 		_scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.center.x-(self.bounds.size.width/2/2), self.bounds.origin.y, (self.bounds.size.width/2), self.bounds.size.height)];
-		_scrollView.delegate = self;
+        _scrollView.delegate = self;
 		_scrollView.clipsToBounds = NO;
 		_scrollView.pagingEnabled = YES;
+		_scrollView.showsVerticalScrollIndicator = NO;
 		_scrollView.showsHorizontalScrollIndicator = NO;
+		_scrollView.contentSize = CGSizeMake(self.bounds.size.width, self.bounds.size.height*2);
 		[self addSubview:_scrollView];
 	}
 	return self;
