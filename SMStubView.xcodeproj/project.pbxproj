@@ -13,7 +13,11 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		288765A50DF7441C002DB57D /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 288765A40DF7441C002DB57D /* CoreGraphics.framework */; };
 		28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 28AD733E0D9D9553002E5188 /* MainWindow.xib */; };
-		28D7ACF80DDB3853001CB0EB /* SMStubViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SMStubViewViewController.m */; };
+		28D7ACF80DDB3853001CB0EB /* SMStubViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 28D7ACF70DDB3853001CB0EB /* SMStubViewController.m */; };
+		DE487DF6153BD0DD0098DF4E /* left@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE487DF4153BD0DD0098DF4E /* left@2x.png */; };
+		DE487DF7153BD0DD0098DF4E /* right@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DE487DF5153BD0DD0098DF4E /* right@2x.png */; };
+		DE487DFE153BD1000098DF4E /* left.png in Resources */ = {isa = PBXBuildFile; fileRef = DE487DFC153BD1000098DF4E /* left.png */; };
+		DE487DFF153BD1000098DF4E /* right.png in Resources */ = {isa = PBXBuildFile; fileRef = DE487DFD153BD1000098DF4E /* right.png */; };
 		DEFD850415376D6C00121007 /* SMStubView.m in Sources */ = {isa = PBXBuildFile; fileRef = DEFD850315376D6C00121007 /* SMStubView.m */; };
 		DEFD850E15376DC100121007 /* stubview.png in Resources */ = {isa = PBXBuildFile; fileRef = DEFD850C15376DC100121007 /* stubview.png */; };
 		DEFD850F15376DC100121007 /* stubview@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = DEFD850D15376DC100121007 /* stubview@2x.png */; };
@@ -27,11 +31,15 @@
 		1DF5F4DF0D08C38300B7A737 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		288765A40DF7441C002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		28AD733E0D9D9553002E5188 /* MainWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MainWindow.xib; sourceTree = "<group>"; };
-		28D7ACF60DDB3853001CB0EB /* SMStubViewViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMStubViewViewController.h; sourceTree = "<group>"; };
-		28D7ACF70DDB3853001CB0EB /* SMStubViewViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMStubViewViewController.m; sourceTree = "<group>"; };
+		28D7ACF60DDB3853001CB0EB /* SMStubViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMStubViewController.h; sourceTree = "<group>"; };
+		28D7ACF70DDB3853001CB0EB /* SMStubViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMStubViewController.m; sourceTree = "<group>"; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		32CA4F630368D1EE00C91783 /* SMStubView_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMStubView_Prefix.pch; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* SMStubView-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SMStubView-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
+		DE487DF4153BD0DD0098DF4E /* left@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "left@2x.png"; sourceTree = "<group>"; };
+		DE487DF5153BD0DD0098DF4E /* right@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "right@2x.png"; sourceTree = "<group>"; };
+		DE487DFC153BD1000098DF4E /* left.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = left.png; sourceTree = "<group>"; };
+		DE487DFD153BD1000098DF4E /* right.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = right.png; sourceTree = "<group>"; };
 		DEFD850215376D6C00121007 /* SMStubView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SMStubView.h; sourceTree = "<group>"; };
 		DEFD850315376D6C00121007 /* SMStubView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SMStubView.m; sourceTree = "<group>"; };
 		DEFD850C15376DC100121007 /* stubview.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = stubview.png; sourceTree = "<group>"; };
@@ -57,8 +65,8 @@
 			children = (
 				1D3623240D0F684500981E51 /* SMStubViewAppDelegate.h */,
 				1D3623250D0F684500981E51 /* SMStubViewAppDelegate.m */,
-				28D7ACF60DDB3853001CB0EB /* SMStubViewViewController.h */,
-				28D7ACF70DDB3853001CB0EB /* SMStubViewViewController.m */,
+				28D7ACF60DDB3853001CB0EB /* SMStubViewController.h */,
+				28D7ACF70DDB3853001CB0EB /* SMStubViewController.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -117,6 +125,10 @@
 			children = (
 				DEFD850215376D6C00121007 /* SMStubView.h */,
 				DEFD850315376D6C00121007 /* SMStubView.m */,
+				DE487DFC153BD1000098DF4E /* left.png */,
+				DE487DF4153BD0DD0098DF4E /* left@2x.png */,
+				DE487DFD153BD1000098DF4E /* right.png */,
+				DE487DF5153BD0DD0098DF4E /* right@2x.png */,
 				DEFD850C15376DC100121007 /* stubview.png */,
 				DEFD850D15376DC100121007 /* stubview@2x.png */,
 			);
@@ -175,6 +187,10 @@
 				28AD733F0D9D9553002E5188 /* MainWindow.xib in Resources */,
 				DEFD850E15376DC100121007 /* stubview.png in Resources */,
 				DEFD850F15376DC100121007 /* stubview@2x.png in Resources */,
+				DE487DF6153BD0DD0098DF4E /* left@2x.png in Resources */,
+				DE487DF7153BD0DD0098DF4E /* right@2x.png in Resources */,
+				DE487DFE153BD1000098DF4E /* left.png in Resources */,
+				DE487DFF153BD1000098DF4E /* right.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -187,7 +203,7 @@
 			files = (
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* SMStubViewAppDelegate.m in Sources */,
-				28D7ACF80DDB3853001CB0EB /* SMStubViewViewController.m in Sources */,
+				28D7ACF80DDB3853001CB0EB /* SMStubViewController.m in Sources */,
 				DEFD850415376D6C00121007 /* SMStubView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,5 +1,5 @@
 #import "SMStubViewAppDelegate.h"
-#import "SMStubViewViewController.h"
+#import "SMStubViewController.h"
 
 @implementation SMStubViewAppDelegate
 

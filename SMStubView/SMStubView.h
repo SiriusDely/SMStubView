@@ -10,13 +10,12 @@
 	UIScrollView *			_scrollView;
 	id <SMStubViewDelegate>	_delegate;
 	NSArray *				_menus;
+	UIImageView *			_leftView;
+	UIImageView *			_rightView;
 }
 
-@property (nonatomic, retain)	UIScrollView *scrollView;
 @property (nonatomic, assign)	id <SMStubViewDelegate> delegate;
 
 - (void)setMenus:(NSArray *)menus;
-
-- (void)shit;
 
 @end

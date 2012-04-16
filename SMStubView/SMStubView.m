@@ -2,10 +2,11 @@
 
 @implementation SMStubView
 
-@synthesize scrollView = _scrollView;
 @synthesize delegate = _delegate;
 
 - (void)dealloc {
+	[_leftView release];
+	[_rightView release];
 	[_menus release];
 	[_scrollView release];
     [super dealloc];
@@ -23,6 +24,13 @@
 		_scrollView.showsHorizontalScrollIndicator = NO;
 		_scrollView.contentSize = CGSizeMake(self.bounds.size.width, self.bounds.size.height*2);
 		[self addSubview:_scrollView];
+		_leftView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"left.png"]];
+		_leftView.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, _leftView.frame.size.width, _leftView.frame.size.height);
+		[self addSubview:_leftView];
+		_leftView.hidden = YES;
+		_rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right.png"]];
+		_rightView.frame = CGRectMake(self.bounds.size.width-(_rightView.frame.size.width), self.bounds.origin.y, _leftView.frame.size.width, _leftView.frame.size.height);
+		[self addSubview:_rightView];
 	}
 	return self;
 }
@@ -35,7 +43,6 @@
 }
 
 - (void)setMenus:(NSArray *)menus {
-	NSLog(@"setMenus");
 	[_menus release];
 	_menus = [menus copy];
 	CGFloat contentOffset = 0;
@@ -61,13 +68,13 @@
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	CGFloat pageWidth = _scrollView.frame.size.width;
 	int index = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+	if (index <= 0) _leftView.hidden = YES;
+	else _leftView.hidden = NO;
+	if (index >= (_menus.count-1)) _rightView.hidden = YES;
+	else _rightView.hidden = NO;
 	if ([_delegate respondsToSelector:@selector(stubViewDidEndDeceleratingToIndex:)]) {
 		[_delegate stubViewDidEndDeceleratingToIndex:index];
 	}
-}
-
-- (void)shit {
-	NSLog(@"shit");
 }
 
 @end

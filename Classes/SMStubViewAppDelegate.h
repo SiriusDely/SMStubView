@@ -1,14 +1,14 @@
 #import <UIKit/UIKit.h>
 
-@class SMStubViewViewController;
+@class SMStubViewController;
 
 @interface SMStubViewAppDelegate : NSObject <UIApplicationDelegate> {
     UIWindow *window;
-    SMStubViewViewController *viewController;
+    SMStubViewController *viewController;
 }
 
 @property (nonatomic, retain) IBOutlet UIWindow *window;
-@property (nonatomic, retain) IBOutlet SMStubViewViewController *viewController;
+@property (nonatomic, retain) IBOutlet SMStubViewController *viewController;
 
 @end
 
