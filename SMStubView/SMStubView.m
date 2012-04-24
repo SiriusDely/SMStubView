@@ -48,12 +48,12 @@
 	CGFloat contentOffset = 0;
 	for (unsigned i=0; i<_menus.count; i++) {
 		NSString *menu = [_menus objectAtIndex:i];
-		CGRect labelFrame = CGRectMake(contentOffset, 0, 160, 23);
+		CGRect labelFrame = CGRectMake(contentOffset, 0, 160, self.bounds.size.height);
 		UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
 		label.backgroundColor = [UIColor clearColor];
 		label.textColor = [UIColor whiteColor];
 		label.textAlignment = UITextAlignmentCenter;
-		label.font = [UIFont systemFontOfSize:14];
+		label.font = [UIFont systemFontOfSize:16];
 		label.text = menu;
 		[_scrollView addSubview:label];
 		[label release];
