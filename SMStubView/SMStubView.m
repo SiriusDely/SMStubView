@@ -31,6 +31,8 @@
 		_rightView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"right.png"]];
 		_rightView.frame = CGRectMake(self.bounds.size.width-(_rightView.frame.size.width), self.bounds.origin.y, _leftView.frame.size.width, _leftView.frame.size.height);
 		[self addSubview:_rightView];
+		
+		_isUsingScrollView = YES;
 	}
 	return self;
 }
@@ -46,7 +48,7 @@
 	[_menus release];
 	_menus = [menus copy];
 	CGFloat contentOffset = 0;
-	for (unsigned i=0; i<_menus.count; i++) {
+	for (NSUInteger i=0; i<_menus.count; i++) {
 		NSString *menu = [_menus objectAtIndex:i];
 		CGRect labelFrame = CGRectMake(contentOffset, 0, 160, self.bounds.size.height);
 		UILabel *label = [[UILabel alloc] initWithFrame:labelFrame];
@@ -62,19 +64,40 @@
 	}
 }
 
+- (void)scrollToIndex:(int)index {
+	CGRect frame;
+	frame.origin.x = _scrollView.frame.size.width * index;
+	frame.origin.y = 0;
+	frame.size = _scrollView.frame.size;
+	[_scrollView scrollRectToVisible:frame animated:YES];
+	_isUsingScrollView = NO;
+	[_scrollView scrollRectToVisible:frame animated:YES];
+	
+}
+
 #pragma mark -
 #pragma mark UIScrollViewDelegate methods
 
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView {
+	_isUsingScrollView = YES;
+}
+
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
+	_isUsingScrollView = YES;
+	CGFloat pageWidth = _scrollView.frame.size.width;
+	int index = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
+	if ([_delegate respondsToSelector:@selector(stubViewDidEndDeceleratingToIndex:)]) {
+		[_delegate stubViewDidEndDeceleratingToIndex:index];
+	}
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
 	CGFloat pageWidth = _scrollView.frame.size.width;
 	int index = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
 	if (index <= 0) _leftView.hidden = YES;
 	else _leftView.hidden = NO;
 	if (index >= (_menus.count-1)) _rightView.hidden = YES;
 	else _rightView.hidden = NO;
-	if ([_delegate respondsToSelector:@selector(stubViewDidEndDeceleratingToIndex:)]) {
-		[_delegate stubViewDidEndDeceleratingToIndex:index];
-	}
 }
 
 @end

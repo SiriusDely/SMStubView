@@ -12,10 +12,12 @@
 	NSArray *				_menus;
 	UIImageView *			_leftView;
 	UIImageView *			_rightView;
+	BOOL					_isUsingScrollView;
 }
 
 @property (nonatomic, assign)	id <SMStubViewDelegate> delegate;
 
 - (void)setMenus:(NSArray *)menus;
+- (void)scrollToIndex:(int)index;
 
 @end
