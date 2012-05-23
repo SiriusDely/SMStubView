@@ -142,25 +142,19 @@
 	CGFloat pageWidth = _scrollView.frame.size.width;
 	int index = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
-    UILabel *label = [_scrollView viewWithTag:index+1];
-    [label setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview-press.png"]]];
-    [label setTextColor:[UIColor colorWithRed:00.0/255.0 green:133.0/255.0 blue:126.0/255.0 alpha:1.0]];
-    [label setFont:[UIFont boldSystemFontOfSize:12]];
-    
-    if (index!=0) {
-        UILabel *prevLabel = [_scrollView viewWithTag:index];
-        [prevLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview.png"]]];
-        [prevLabel setTextColor:[UIColor whiteColor]];
-        [prevLabel setFont:[UIFont systemFontOfSize:12]];
+    for (int i=1; i<_menus.count+1; i++) {
+        UILabel *label = [_scrollView viewWithTag:i];
+        if (i!=index+1) {
+            [label setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview.png"]]];
+            [label setTextColor:[UIColor whiteColor]];
+            [label setFont:[UIFont systemFontOfSize:12]];
+        } else {
+            [label setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview-press.png"]]];
+            [label setTextColor:[UIColor colorWithRed:00.0/255.0 green:133.0/255.0 blue:126.0/255.0 alpha:1.0]];
+            [label setFont:[UIFont boldSystemFontOfSize:12]];
+        }
     }
-    
-    if (index<_menus.count-1) {
-        UILabel *nextLabel = [_scrollView viewWithTag:index+2];
-        [nextLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview.png"]]];
-        [nextLabel setTextColor:[UIColor whiteColor]];
-        [nextLabel setFont:[UIFont systemFontOfSize:12]];
-    }
-    
+        
 	if ([_delegate respondsToSelector:@selector(stubViewDidEndDeceleratingToIndex:)]) {
 		[_delegate stubViewDidEndDeceleratingToIndex:index];
 	}
