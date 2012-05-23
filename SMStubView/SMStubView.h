@@ -12,6 +12,8 @@
 	NSArray *				_menus;
 	UIImageView *			_leftView;
 	UIImageView *			_rightView;
+    UIButton *              _leftButton;
+    UIButton *              _rightButton;
 	BOOL					_isUsingScrollView;
 }
 
@@ -19,5 +21,6 @@
 
 - (void)setMenus:(NSArray *)menus;
 - (void)scrollToIndex:(int)index;
+- (int)activeIndex;
 
 @end
