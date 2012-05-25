@@ -57,9 +57,8 @@
 		label.font = [UIFont systemFontOfSize:12];
 		label.text = [menu uppercaseString];
         labelsize = [menu sizeWithFont:label.font constrainedToSize:CGSizeMake(80,44) lineBreakMode:UILineBreakModeWordWrap];
-        label.frame = CGRectMake(contentOffset+2, 0, 160/2, 44);
+        label.frame = CGRectMake(contentOffset, 0, 80, 44);
         [label setTag:i+1];
-        //[label setUserInteractionEnabled:YES];
 		[_scrollView addSubview:label];
 		
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
