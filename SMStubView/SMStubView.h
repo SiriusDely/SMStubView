@@ -15,12 +15,12 @@
     UIButton *              _leftButton;
     UIButton *              _rightButton;
 	BOOL					_isUsingScrollView;
+    int                     _activeIndex;
 }
 
 @property (nonatomic, assign)	id <SMStubViewDelegate> delegate;
 
 - (void)setMenus:(NSArray *)menus;
 - (void)scrollToIndex:(int)index;
-- (int)activeIndex;
 
 @end
