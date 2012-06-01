@@ -16,30 +16,63 @@
 	self = [super initWithFrame:frame];
 	if (self) {
 		self.backgroundColor = [UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview.png"]];
-        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(self.center.x-(self.bounds.size.width/2/2/2), self.bounds.origin.y, (self.bounds.size.width/2/2), self.bounds.size.height)];
+        _scrollView = [[UIScrollView alloc] initWithFrame:CGRectMake(30,0, self.bounds.size.width-60, self.bounds.size.height)];
+        [_scrollView setBackgroundColor:[UIColor clearColor]];
         _scrollView.delegate = self;
 		_scrollView.clipsToBounds = NO;
-		_scrollView.pagingEnabled = YES;
+		_scrollView.pagingEnabled = NO;
 		_scrollView.showsVerticalScrollIndicator = NO;
 		_scrollView.showsHorizontalScrollIndicator = NO;
 		_scrollView.contentSize = CGSizeMake(self.bounds.size.width, self.bounds.size.height);
         _scrollView.canCancelContentTouches = YES;
-		//[self addSubview:_scrollView];
+		[self addSubview:_scrollView];
+        
+        _leftButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _leftButton.frame = CGRectMake(self.bounds.origin.x, self.bounds.origin.y, 30, 44);
+        [_leftButton addTarget:self action:@selector(leftButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [_leftButton setBackgroundColor:[UIColor clearColor]];
+        [_leftButton setImage:[UIImage imageNamed:@"left.png"] forState:UIControlStateNormal];
+        [_leftButton setImage:[UIImage imageNamed:@"left-press.png"] forState:UIControlStateHighlighted];
+        [_leftButton sizeToFit];
+        [self addSubview:_leftButton];
+        
+        _rightButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        _rightButton.frame = CGRectMake(self.bounds.size.width-30, self.bounds.origin.y, 30, 44);
+        [_rightButton addTarget:self action:@selector(rightButtonPressed) forControlEvents:UIControlEventTouchUpInside];
+        [_rightButton setBackgroundColor:[UIColor clearColor]];
+        [_rightButton setImage:[UIImage imageNamed:@"right.png"] forState:UIControlStateNormal];
+        [_rightButton setImage:[UIImage imageNamed:@"right-press.png"] forState:UIControlStateHighlighted];
+        [_rightButton sizeToFit];
+        [self addSubview:_rightButton];
         
 		_isUsingScrollView = YES;
 	}
 	return self;
 }
 
-
+/*
 - (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
-	if ([self pointInside:point withEvent:event]) {
-        //NSLog(@"hit");
+    
+    CGPoint leftButtonPoint = _leftButton.frame.origin;
+    CGPoint rightButtonPoint = _rightButton.frame.origin;
+	if ([self pointInside:leftButtonPoint withEvent:event]) {
+        return _leftButton;
+    } else if ([self pointInside:rightButtonPoint withEvent:event]){
+        return _rightButton;
+    } else {
+        return _scrollView;
+    }
+    
+    UITouch *touch = [event touchesForView:_scrollView];
+    touch.gestureRecognizers gestureRecognizers
+    if ([[event touchesForView:_scrollView] containsObject:UITouchPhaseStationary]) {
+        NSLog(@"touched");
         return _scrollView;
     }
 	return nil;
+    
 }
-
+*/
 
 - (void)setMenus:(NSArray *)menus {
 	[_menus release];
@@ -60,14 +93,15 @@
         label.frame = CGRectMake(contentOffset, 0, 80, 44);
         [label setTag:i+1];
 		[_scrollView addSubview:label];
+        [label release];
 		
         UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
-        button.frame = label.frame;
+        button.frame = labelFrame;
         [button addTarget:self action:@selector(labelButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
         [button setBackgroundColor:[UIColor clearColor]];
         [button setTag:i+11];
-        [button setUserInteractionEnabled: YES];
-        [label addSubview:button];
+        [_scrollView addSubview:button];
+        //[button release];
         
         if (i!=0) {
             UIImageView *border = [[UIImageView alloc] initWithFrame:CGRectMake(label.frame.origin.x-2, 0, 2, 44)];
@@ -78,52 +112,60 @@
         
 		contentOffset += 82;
 		_scrollView.contentSize = CGSizeMake(82*(i+1), 44);
-        [label release];
 	}
-    [self addSubview:_scrollView];
+}
+         
+- (void)rightButtonPressed{
+    if (_activeIndex < _menus.count) {
+        [self scrollToIndex:_activeIndex+1];
+    }
+}
+
+- (void)leftButtonPressed{
+    if (_activeIndex != 1) {
+        [self scrollToIndex:_activeIndex-1];
+    }
 }
 
 - (void)labelButtonPressed:(id)sender{
-    NSLog(@"button pressed");
-}
-
-- (int)activeIndex{
-    CGFloat pageWidth = _scrollView.frame.size.width;
-	int index = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    return index;
+    UIButton *button = (UIButton *)sender;
+    int tag = button.tag;
+    NSLog(@"button %d pressed", tag);
+    [self scrollToIndex:tag-10];
 }
 
 - (void)scrollToIndex:(int)index {
     NSLog(@"index: %d",index);
+    UIButton *currentButton = (UIButton*)[_scrollView viewWithTag:index+10];
 	CGRect frame;
-	frame.origin.x = 82*index;
+	frame.origin.x = currentButton.frame.origin.x;//+(self.frame.size.width/2)-(currentButton.frame.size.width/2);
 	frame.origin.y = 0;
-	frame.size = _scrollView.frame.size;
+	frame.size = currentButton.frame.size;
 	[_scrollView scrollRectToVisible:frame animated:YES];
 	_isUsingScrollView = NO;
 	[_scrollView scrollRectToVisible:frame animated:YES];
+    _activeIndex = index;
     
-    UILabel *label = [_scrollView viewWithTag:index+1];
+    UILabel *label = (UILabel*)[_scrollView viewWithTag:index];
     [label setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview-press.png"]]];
     [label setTextColor:[UIColor colorWithRed:00.0/255.0 green:133.0/255.0 blue:126.0/255.0 alpha:1.0]];
     [label setFont:[UIFont boldSystemFontOfSize:12]];
     
-    if (index!=0) {
-        UILabel *prevLabel = [_scrollView viewWithTag:index];
-        [prevLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview.png"]]];
-        [prevLabel setTextColor:[UIColor whiteColor]];
-        [prevLabel setFont:[UIFont systemFontOfSize:12]];
-    }
-    
-    if (index<_menus.count-1) {
-        UILabel *nextLabel = [_scrollView viewWithTag:index+2];
-        [nextLabel setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview.png"]]];
-        [nextLabel setTextColor:[UIColor whiteColor]];
-        [nextLabel setFont:[UIFont systemFontOfSize:12]];
+    for (int i=1; i<=_menus.count; i++) {
+        UILabel *label = (UILabel*)[_scrollView viewWithTag:i];
+        if (i!=index) {
+            [label setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview.png"]]];
+            [label setTextColor:[UIColor whiteColor]];
+            [label setFont:[UIFont systemFontOfSize:12]];
+        } else {
+            [label setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview-press.png"]]];
+            [label setTextColor:[UIColor colorWithRed:00.0/255.0 green:133.0/255.0 blue:126.0/255.0 alpha:1.0]];
+            [label setFont:[UIFont boldSystemFontOfSize:12]];
+        }
     }
     
     if ([_delegate respondsToSelector:@selector(stubViewDidEndDeceleratingToIndex:)]) {
-		[_delegate stubViewDidEndDeceleratingToIndex:index];
+		[_delegate stubViewDidEndDeceleratingToIndex:index-1];
 	}
 }
 
@@ -137,12 +179,12 @@
 
 - (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView {
 	_isUsingScrollView = YES;
-    
+    /*
 	CGFloat pageWidth = _scrollView.frame.size.width;
 	int index = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     
-    for (int i=1; i<_menus.count+1; i++) {
-        UILabel *label = [_scrollView viewWithTag:i];
+    for (int i=1; i<_menus.count; i++) {
+        UILabel *label = (UILabel*)[_scrollView viewWithTag:i];
         if (i!=index+1) {
             [label setBackgroundColor:[UIColor colorWithPatternImage:[UIImage imageNamed:@"stubview.png"]]];
             [label setTextColor:[UIColor whiteColor]];
@@ -153,19 +195,18 @@
             [label setFont:[UIFont boldSystemFontOfSize:12]];
         }
     }
-        
+     */
+    /*    
 	if ([_delegate respondsToSelector:@selector(stubViewDidEndDeceleratingToIndex:)]) {
 		[_delegate stubViewDidEndDeceleratingToIndex:index];
 	}
-    
+    */
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-	CGFloat pageWidth = _scrollView.frame.size.width;
-	int index = floor((_scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-	if (index <= 0) _leftView.hidden = YES;
+	if (_activeIndex <= 0) _leftView.hidden = YES;
 	else _leftView.hidden = NO;
-	if (index >= (_menus.count-1)) _rightView.hidden = YES;
+	if (_activeIndex >= (_menus.count)) _rightView.hidden = YES;
 	else _rightView.hidden = NO;
 }
 
